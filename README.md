@@ -1,3 +1,5 @@
+This fork enables executing the Excel API Javascript file outside of OpenFin by attaching the API to `fin.desktop` only if `fin.desktop` exists.
+
 # excel-api-example
 This repo demonstrates the usage of JavaScript Excel API provided by Openfin.
 
