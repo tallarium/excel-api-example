@@ -732,7 +732,9 @@ exports.ExcelWorksheet = ExcelWorksheet;
 
 // This is the entry point of the Plugin script
 const ExcelApi_1 = __webpack_require__(1);
-window.fin.desktop.Excel = ExcelApi_1.LegacyApi;
+if (window.fin && window.fin.desktop) {
+    window.fin.desktop.Excel = ExcelApi_1.LegacyApi;
+}
 //# sourceMappingURL=plugin.js.map
 
 /***/ })
