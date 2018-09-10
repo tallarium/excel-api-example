@@ -480,22 +480,44 @@ window.addEventListener("DOMContentLoaded", function () {
 
         return Promise.resolve()
             .then(() => deployAddIn(servicePath, installFolder))
-            .then(() => startExcelService(servicePath, installFolder))
-            .then(() => registerAddIn(servicePath, installFolder));
+            // .then(() => startExcelService(servicePath, installFolder))
+            // .then(() => registerAddIn(servicePath, installFolder));
+    }
+
+    function blockCpu() {
+        console.log("blocked");
+        const start = new Date();
+        var result = 0;
+        do {
+            result += Math.random() * Math.random();
+        }
+        while(new Date() - start < 1000);
+        console.log("unblocked");
+        return result;
     }
 
     function deployAddIn(servicePath, installFolder) {
         return new Promise((resolve, reject) => {
             console.log('Deploying Add-In');
-            fin.desktop.System.launchExternalProcess({
-                alias: 'excel-api-addin',
-                target: servicePath,
-                arguments: '-d "' + installFolder + '"',
-                listener: function (args) {
-                    console.log('Installer script completed! ' + args.exitCode);
-                    resolve();
+            fin.desktop.System.launchExternalProcess(
+                {
+                    alias: 'excel-api-addin',
+                    target: servicePath,
+                    arguments: '-d "' + installFolder + '"',
+                    listener: function (args) {
+                        // If we are "busy" during the execution of launchExternalProcess, this callback is never called
+                        console.log('Installer script completed! ' + args.exitCode);
+                        resolve();
+                    }
+                },
+                () => {
+                    console.log("Started process");
+                },
+                (err) => {
+                    console.log("Error starting proecess", err);
                 }
-            });
+            );
+            blockCpu();
         });
     }
 
