@@ -19,7 +19,7 @@
   },
   "runtime": {
     "arguments": "",
-    "version": "7.*"
+    "version": "9.61.34.22"
   },
   "splashScreenImage": "http://localhost:8080/web/splash_excel.png",
   "shortcut": {

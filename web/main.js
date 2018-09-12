@@ -563,10 +563,19 @@ window.addEventListener("DOMContentLoaded", function () {
     fin.desktop.main(function () {
        fin.desktop.Excel.init();
 
-        Promise.resolve()
-            .then(simluatePluginService)
-            .then(connectToExcel)
-            .then(onExcelConnected)
-            .catch(err => console.log(err));
+        fin.desktop.System.getAppAssetInfo(
+            { alias: 'excel-api-addin' },
+            appAssetInfo => {
+                console.log("version", appAssetInfo.version);
+            },
+            err => {
+                console.error(err);
+            }
+        );
+        // Promise.resolve()
+        //     .then(simluatePluginService)
+        //     .then(connectToExcel)
+        //     .then(onExcelConnected)
+        //     .catch(err => console.log(err));
     });
 });
