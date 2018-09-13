@@ -585,6 +585,15 @@ window.addEventListener("DOMContentLoaded", function () {
     fin.desktop.main(function () {
        fin.desktop.Excel.init();
 
+        var finWindow = fin.desktop.Window.getCurrent();
+        finWindow.addEventListener("external-process-exited", function (event) {
+            console.log("external-process-exited", event);
+        }, function () {
+            console.log("Registered external-process-exited handler");
+        },function (reason) {
+            console.log("Failed to register external-process-handler" + reason);
+        });
+
         Promise.resolve()
             .then(simluatePluginService)
             .then(connectToExcel)
